@@ -29,7 +29,7 @@ export default {
 <style scoped>
 .card {
   border: 2px solid silver;
-  border-radius: 8px;
+  border-radius: 10px;
   max-width: 250px;
   margin: 0 5px;
   cursor: pointer;

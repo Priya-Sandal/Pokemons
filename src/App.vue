@@ -5,13 +5,16 @@
   <pokemon-cards :pokemons="pokemons" @chosen="fetchEvolutions" :selectedId="selectedId" />
 
   <pokemon-cards :pokemons="evolution" />
+
   <div class="cards">
     <card v-for="pokemon in evolution" :key="pokemon.id" @click="fetchEvolutions(pokemon)">
       <template v-slot:title>
-        {{ pokemon.name }} #{{ pokemon.id }}
+        {{ pokemon.name }} #{{ pokemon.id}}
       </template>
 
+
       <template v-slot:content>
+
         <img :src="pokemon.sprites">
       </template>
 

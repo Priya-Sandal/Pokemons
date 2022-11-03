@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 img {
-    width: 100%;
+    width: 90%
 }
 .cards {
     display: flex;
