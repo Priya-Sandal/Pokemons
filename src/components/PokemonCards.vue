@@ -2,7 +2,7 @@
     <div class="cards">
 
 
-        <card v-for="pokemon in pokemons" :key="pokemon.id" @click="click(pokemon)"
+        <card v-for="pokemon in pokemonsdata" :key="pokemon.id" @click="click(pokemon)"
             :class="{ opace: selectedId && pokemon.id !== selectedId}" class="card">
             <template v-slot:title>
                 {{pokemon.name}} #{{pokemon.id}}
@@ -31,12 +31,14 @@ export default {
         selectedId: {
             type: Number
         },
-        pokemons: {
+        pokemonsdata: {
             type: Array,
             default: []
         }
     },
-    setup(props,context) {
+    setup(props,context)
+     {
+        console.log(props);
         const click = (pokemon) => {
             context.emit("click(pokemon)", props)
         }
@@ -44,6 +46,7 @@ export default {
             click
         };
     }
+    
     
     // methods: {
     //     click(pokemon) {

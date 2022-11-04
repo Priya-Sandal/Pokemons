@@ -1,32 +1,34 @@
 
 <template>
   <!-- <suspense> -->
-  Hlo
-  {{ evolution }}{{ pokemons }}
-  <pokemon-cards :pokemons="pokemons" @chosen="fetchEvolutions" :selectedId="selectedId" />
+  <!-- Hlo
+  {{ evolution }}{{ pokemons }} -->
 
-  <pokemon-cards :pokemons="evolution" />
+  <pokemon-cards v-if="pokemons && pokemons.length" :pokemonsdata="pokemons" @chosen="fetchEvolutions" :selectedId="selectedId" />
+{{pokemons}}
+  <!-- <pokemon-cards :pokemons="evolution" /> -->
 
-  <div class="cards">
-    <div v-for="pokemon in evolution" :key="pokemon.id" @click="fetchEvolutions(pokemon)">
-      <!-- <template v-slot:title> -->
+   <!-- <div class="cards">
+    <card v-for="pokemon in evolution" :key="pokemon.id" @click="fetchEvolutions(pokemon)">
+      <template v-slot:title>
         {{ pokemon.name }} #{{ pokemon.id }}
-      <!-- </template> -->
+      </template>
 
 
-      <!-- <template v-slot:content> -->
+      <template v-slot:content>
 
         <img :src="pokemon.sprites">
-      <!-- </template> -->
+      </template>
 
-      <!-- <template v-slot:description> -->
+      <template v-slot:description>
         <div v-for="type in pokemon.types" :key="type">
           {{ type }}
-        </div>
-    
-</div>
-    
-  </div>
+        </div> -->
+      <!-- </template>
+    </card>
+
+  </div> -->
+
 
 
 </template>
@@ -50,18 +52,14 @@ export default {
     const evolution = ref(null)
 
     const selectedId = ref(0)
-     fetchEvolutions = async (pokemon) => {
+    const fetchEvolutions = async (pokemon) => {
       evolution.value = await fetchData(
         [pokemon.id + 1, pokemon.id + 2])
       selectedId.value = pokemon.id
       console.log(selectedId.value);
     }
 
-    onMounted(async () => {
-      fetchData(IDS)
-      pokemons.value = await fetchData(IDS)
-
-    })
+   
     const fetchData = async (ids) => {
       const responses = await Promise.all(
         ids.map(id => window.fetch(`${api}/${id}`))
@@ -76,6 +74,12 @@ export default {
         types: dataum.types.map(type => type.type.name)
       }))
     }
+     onMounted(async () => {
+      // fetchData(IDS)
+
+      pokemons.value = await fetchData(IDS)
+      console.log(pokemons.value);
+    })
     return {
       pokemons,
       evolution,
