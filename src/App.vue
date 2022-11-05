@@ -4,11 +4,12 @@
   <!-- Hlo
   {{ evolution }}{{ pokemons }} -->
 
-  <pokemon-cards v-if="pokemons && pokemons.length" :pokemonsdata="pokemons" @chosen="fetchEvolutions" :selectedId="selectedId" />
-{{pokemons}}
-  <!-- <pokemon-cards :pokemons="evolution" /> -->
+  <pokemon-cards v-if="pokemons && pokemons.length" :pokemonsdata="pokemons" @chosen="fetchEvolutions"
+    :selectedId="selectedId" />
+  <!-- {{pokemons}} -->
+  <pokemon-cards :pokemonsdata="evolution" />
 
-   <!-- <div class="cards">
+  <div class="cards">
     <card v-for="pokemon in evolution" :key="pokemon.id" @click="fetchEvolutions(pokemon)">
       <template v-slot:title>
         {{ pokemon.name }} #{{ pokemon.id }}
@@ -23,11 +24,11 @@
       <template v-slot:description>
         <div v-for="type in pokemon.types" :key="type">
           {{ type }}
-        </div> -->
-      <!-- </template>
+        </div>
+      </template>
     </card>
 
-  </div> -->
+  </div>
 
 
 
@@ -36,7 +37,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-// import Card from './components/Card.vue';
+import Card from './components/Card.vue';
 import PokemonCards from './components/PokemonCards.vue';
 const api = 'https://pokeapi.co/api/v2/pokemon'
 
@@ -44,7 +45,7 @@ const IDS = [1, 4, 7]
 export default {
   components: {
     PokemonCards,
-    // Card
+    Card
   },
   setup() {
 
@@ -53,13 +54,14 @@ export default {
 
     const selectedId = ref(0)
     const fetchEvolutions = async (pokemon) => {
+      // console.log(fetchEvolutions);
       evolution.value = await fetchData(
         [pokemon.id + 1, pokemon.id + 2])
       selectedId.value = pokemon.id
       console.log(selectedId.value);
     }
 
-   
+
     const fetchData = async (ids) => {
       const responses = await Promise.all(
         ids.map(id => window.fetch(`${api}/${id}`))
@@ -74,7 +76,7 @@ export default {
         types: dataum.types.map(type => type.type.name)
       }))
     }
-     onMounted(async () => {
+    onMounted(async () => {
       // fetchData(IDS)
 
       pokemons.value = await fetchData(IDS)

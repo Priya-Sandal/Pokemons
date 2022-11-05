@@ -3,9 +3,10 @@
 
 
         <card v-for="pokemon in pokemonsdata" :key="pokemon.id" @click="click(pokemon)"
-            :class="{ opace: selectedId && pokemon.id !== selectedId}" class="card">
+            :class="{ opace: selectedId && pokemon.id !== selectedId }" class="card">
+
             <template v-slot:title>
-                {{pokemon.name}} #{{pokemon.id}}
+                {{ pokemon.name }} #{{ pokemon.id }}
             </template>
 
             <template v-slot:content>
@@ -14,7 +15,7 @@
 
             <template v-slot:description>
                 <div v-for="type in pokemon.types" :key="type">
-                    {{type}}
+                    {{ type }}
                 </div>
             </template>
         </card>
@@ -23,10 +24,10 @@
 <script>
 import Card from './Card.vue';
 export default {
-    
-    name: "Card",
+
+    name: "PokemonCards",
     components:
-     { Card },
+        { Card },
     props: {
         selectedId: {
             type: Number
@@ -35,24 +36,27 @@ export default {
             type: Array,
             default: []
         }
+
     },
-    setup(props,context)
-     {
+    setup(props, context) {
         console.log(props);
         const click = (pokemon) => {
-            context.emit("click(pokemon)", props)
+            context.emit('chosen', props, pokemon)
+
         }
+        // methods:{
+        //     click(pokemon) {
+        //         this.$emit('chosen',pokemon)
+        //     }
+        // }
         return {
             click
+
         };
     }
-    
-    
-    // methods: {
-    //     click(pokemon) {
-    //         this.$emit('chosen',pokemon)
-    //     }
-    // }
+
+
+
 }
 </script>
 
@@ -60,12 +64,15 @@ export default {
 img {
     width: 90%
 }
+
 .cards {
     display: flex;
 }
+
 .opace {
     opacity: 0.5;
 }
+
 .card:hover {
     opacity: 1.0;
 }
