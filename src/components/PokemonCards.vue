@@ -1,7 +1,5 @@
 <template>
     <div class="cards">
-
-
         <card v-for="pokemon in pokemonsdata" :key="pokemon.id" @click="click(pokemon)"
             :class="{ opace: selectedId && pokemon.id !== selectedId }" class="card">
 
@@ -39,16 +37,11 @@ export default {
 
     },
     setup(props, context) {
-        console.log(props);
         const click = (pokemon) => {
-            context.emit('chosen', props, pokemon)
+            context.emit('chosen', pokemon)
 
         }
-        // methods:{
-        //     click(pokemon) {
-        //         this.$emit('chosen',pokemon)
-        //     }
-        // }
+
         return {
             click
 

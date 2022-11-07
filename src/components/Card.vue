@@ -1,29 +1,29 @@
 <template>
-    <div class="card">
-        <div class="title">
-           
-            <slot name="title" />
-        </div>
+  <div class="card">
+    <div class="title">
 
-        <div class="content">
-          <slot name="content" />
-         
-        </div>
-        
-        <div class="description">
-          <slot name="description"/>
-
-        </div>
+      <slot name="title" />
     </div>
+
+    <div class="content">
+      <slot name="content" />
+
+    </div>
+
+    <div class="description">
+      <slot name="description" />
+
+    </div>
+  </div>
 </template>
 <script>
 export default {
-// props: {
-//     pokemon: {
-//     type: Object,
-//     required: true
-// }
-// }
+  // props: {
+  //     pokemon: {
+  //     type: Object,
+  //     required: true
+  // }
+  // }
 }
 </script>
 <style scoped>
@@ -36,6 +36,7 @@ export default {
   box-shadow: 0px 1px 3px darkgrey;
   transition: 0.2s;
 }
+
 .title,
 .content,
 .description {
@@ -43,13 +44,16 @@ export default {
   text-transform: capitalize;
   text-align: center;
 }
+
 .title,
 .content {
   border-bottom: 1px solid silver;
 }
+
 .title {
   font-size: 1.25em;
 }
+
 .card:hover {
   transition: 0.2s;
   box-shadow: 0px 1px 9px darkgrey;

@@ -1,39 +1,8 @@
-
 <template>
-  <!-- <suspense> -->
-  <!-- Hlo
-  {{ evolution }}{{ pokemons }} -->
-
   <pokemon-cards v-if="pokemons && pokemons.length" :pokemonsdata="pokemons" @chosen="fetchEvolutions"
     :selectedId="selectedId" />
-  <!-- {{pokemons}} -->
   <pokemon-cards :pokemonsdata="evolution" />
-
-  <div class="cards">
-    <card v-for="pokemon in evolution" :key="pokemon.id" @click="fetchEvolutions(pokemon)">
-      <template v-slot:title>
-        {{ pokemon.name }} #{{ pokemon.id }}
-      </template>
-
-
-      <template v-slot:content>
-
-        <img :src="pokemon.sprites">
-      </template>
-
-      <template v-slot:description>
-        <div v-for="type in pokemon.types" :key="type">
-          {{ type }}
-        </div>
-      </template>
-    </card>
-
-  </div>
-
-
-
 </template>
-
 
 <script>
 import { ref, onMounted } from 'vue';
@@ -54,20 +23,20 @@ export default {
 
     const selectedId = ref(0)
     const fetchEvolutions = async (pokemon) => {
-      // console.log(fetchEvolutions);
+
       evolution.value = await fetchData(
         [pokemon.id + 1, pokemon.id + 2])
       selectedId.value = pokemon.id
-      console.log(selectedId.value);
+
     }
-
-
-    const fetchData = async (ids) => {
+    const fetchData = async (IDS) => {
+      console.log(IDS);
       const responses = await Promise.all(
-        ids.map(id => window.fetch(`${api}/${id}`))
+        IDS.map(id => window.fetch(`${api}/${id}`))
       )
       const json = await Promise.all(
         responses.map(data => data.json())
+
       )
       return json.map(dataum => ({
         id: dataum.id,
@@ -77,8 +46,6 @@ export default {
       }))
     }
     onMounted(async () => {
-      // fetchData(IDS)
-
       pokemons.value = await fetchData(IDS)
       console.log(pokemons.value);
     })
